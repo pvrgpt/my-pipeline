@@ -22,6 +22,27 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
-      - name: 🧪 Run the Math Test
+      - name: Run the math test
         run: python calculator.py
+# 2. THE CD PHASE (Packaging)
+  build-and-push:
+    # Wait for the tests to pass before building!
+    needs: test-math 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download the code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          # Replace YOUR_DOCKER_USERNAME below with your actual username!
+          tags: YOUR_DOCKER_USERNAME/my-calculator:latest
