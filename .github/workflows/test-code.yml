@@ -45,4 +45,4 @@ jobs:
           context: .
           push: true
           # Replace YOUR_DOCKER_USERNAME below with your actual username!
-          tags: YOUR_DOCKER_USERNAME/my-calculator:latest
+          tags: pvrgpt/my-calculator:latest
